@@ -2,7 +2,7 @@ const http=require("http");
 const fs=require("fs");
 var requests=require("request");
 
-const home_file=fs.readFileSync("weather.html", "utf-8");
+const home_file=fs.readFileSync("index.html", "utf-8");
 
 const replaceval = (tempval, org) => {
 let temperature = tempval.replace("{%tempval%}",org.main.temp).replace("{%x%}",org.main.temp_min).replace("{%y%}",org.main.temp_max).replace("{%location%}",org.name).replace("{%status%}",org.weather[0].main).replace("{%humidity%}",org.main.humidity).replace("{%pressure%}",org.main.pressure).replace("{%ws%}",org.wind.speed);
