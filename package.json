@@ -1,0 +1,14 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "weather with node js",
+  "main": "backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mayank Gupta",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}

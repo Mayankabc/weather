@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Report - Madrid</title>
+    <!-- <link rel="stylesheet" href="weather.css"> -->
+
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    
+    
+}
+
+#main-container{
+    border: 2px solid rgb(50, 129, 197); 
+    height: 400px;
+    width: 250px;
+    box-sizing: border-box;
+    position: relative;
+    margin: auto;
+    margin-top: 160px;
+    
+    
+     /* background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh-vdKxqfe26w2T9cEKJspBleav6DWlSPxBA&usqp=CAU   ");  */
+background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+    
+    
+}
+
+.upper-container{
+/* border: 1px solid pink; */
+height: 280px;
+/* background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh-vdKxqfe26w2T9cEKJspBleav6DWlSPxBA&usqp=CAU");
+background-repeat: no-repeat;
+  background-size: 100% 100%; */
+
+}
+
+.lower-container{
+/* border: 1px solid green; */
+height: 115px;
+/* background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh-vdKxqfe26w2T9cEKJspBleav6DWlSPxBA&usqp=CAU"); */
+
+}
+
+
+.location{
+    width: fit-content;
+    height: 30px;
+    /* border: 2px solid black ; */
+    position: relative;
+    margin: auto;
+    text-align: center;
+    box-sizing: border-box;
+    /* top: 250px; */
+    font-size: 1.6rem;
+}
+.date{
+    /* border: 2px solid brown; */
+    position: relative;
+    margin: auto;
+    width: fit-content;
+    /* font-weight: bold; */
+}
+
+.curr-temp{
+    position: relative;
+    width: fit-content;
+    /* border: 2px solid black; */
+    margin: auto;
+    top: 12px;
+    font-size: 1.65rem;
+    
+}
+
+.max-min-temp{
+    position: relative;
+    width: fit-content;
+    margin: auto;
+    top: 10px;
+    /* font-weight: bold; */
+}
+
+.figure{
+    width: 80px;
+    height: 80px;
+    /* border: 2px solid black; */
+    position: relative;
+    margin: auto;
+    top: 60px;
+}
+
+
+#temp-status{
+    /* border: 2px solid black; */
+    text-align: center;
+    position: relative;
+    top: 65px;
+    font-size:1.2rem;
+}
+
+#humidity{
+    text-align: center;
+    position: relative;
+    top: 95px;
+    font-size:1rem;
+}
+
+#pressure{
+    text-align: center;
+    position: relative;
+    top: 95px;
+    font-size:1rem;
+    
+}
+
+#wind-speed{
+    text-align: center;
+    position: relative;
+    top: 95px;
+    font-size:1rem;
+    border: 2px solid black;
+}
+
+
+
+    </style>
+    
+</head>
+<body>
+
+<div id="main-container">
+    <div class="upper-container">
+       <!-- <div class="location">
+        {%locatin%}
+       </div> -->
+       <div class="figure">
+       
+        <i class="fa-solid fa-sun fa-5x" style="color: #ffd43b;" id="master_id"></i>
+        <!-- <i class="fa-solid fa-smog fa-4x" style="color: #928372;"></i>  -->
+        <!-- <i class="fa-solid fa-cloud fa-4x" style="color: #5a9ecb;"></i> -->
+        <!-- <i class="fa-solid fa-cloud-showers-heavy fa-5x" style="color: #676767;"></i> -->
+
+        <!-- <i class="fa-solid fa-moon fa-5x" style="color: #ffffb0;"></i> -->
+        <!-- <i class="fa-solid fa-cloud fa-4x" style="color: #c0c0c0;"></i> -->
+        <!-- <i class="fa-solid fa-smog fa-4x" style="color: #a7a4a2;"></i>  -->
+        <!-- <i class="fa-solid fa-cloud-showers-heavy fa-5x" style="color: #858585;"></i>  -->
+        
+        
+
+       </div>
+       <div id="temp-status">
+        {%status%}
+       </div>
+
+       <div id="humidity">
+            Humidity: {%humidity%}
+       </div>
+
+       <div id="pressure">
+        Pressure: {%pressure%}
+       </div>
+
+       <div id="pressure">
+        Wind-Speed: {%ws%}
+       </div>
+
+       
+
+    </div>
+    <div class="lower-container">
+        <div class="location">
+            {%location%}
+           </div>
+       <div class="date">
+       <span id="date">Wed|Oct 23|</span> <span id="time">12:00</span>
+       </div>
+       <div class="curr-temp">
+        {%tempval%}&deg;C
+       </div>
+       <div class="max-min-temp">
+        Min {%x%}&deg;C|Max {%y%}&deg;C
+       </div>
+    </div>
+</div>
+
+    <script>
+
+const date=document.getElementById("date");
+const figure=document.getElementById("figure");
+const time=document.getElementById("time");
+
+let current_time=new Date;
+console.log(current_time);
+
+const array_of_days=[
+   "Sun",
+   "Mon",
+   "Tue",
+   "Wed",
+   "Thrs",
+   "Fri",
+   "Sat",
+   "Sun"
+]
+
+const array_of_months=[
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+]
+
+//  day|mon 23|time
+date.innerHTML=array_of_days[current_time.getDay()]+("| ")+array_of_months[current_time.getMonth()]+(" ")+current_time.getDate()+("| IST ")
+time.innerHTML=current_time.getHours()+(":")+current_time.getMinutes()
+
+
+
+if(current_time.getHours()<10 &&current_time.getMinutes()>9){
+    time.innerHTML=("0")+current_time.getHours()+(":")+current_time.getMinutes()
+
+}
+
+if(current_time.getMinutes()<10 && current_time.getHours()<10){
+    time.innerHTML=("0")+current_time.getHours()+(":")+("0")+current_time.getMinutes()
+
+}
+
+if(current_time.getHours()>9 &&current_time.getMinutes()<10){
+    time.innerHTML=current_time.getHours()+(":")+("0")+current_time.getMinutes()
+
+}
+
+fetch("https://api.openweathermap.org/data/2.5/weather?q=bangalore&units=metric&appid=4ce8b2fbc2fe7f34a5402acf04225f85").then((data)=>{
+    return data.json();
+}).then((objdata)=>{
+    let status=objdata.weather[0].main;
+    console.log(status)
+
+
+    if(status=='Clear'&& current_time.getHours()<19 && current_time.getHours()>6 ){
+        document.getElementById("main-container").style.backgroundImage="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSh-vdKxqfe26w2T9cEKJspBleav6DWlSPxBA&usqp=CAU')";
+        document.body.style.color="black";
+    }
+    if(status=='Clouds'&& current_time.getHours()<19 && current_time.getHours()>6 ){
+        document.getElementById("main-container").style.backgroundImage="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCkpYDEJ8OadaixNBcbcIPiw2JOtyPp0LUMQ&usqp=CAU')";
+        document.body.style.color="black";
+
+        document.getElementById("master_id").classList.remove("fa-sun","fa-5x");
+        document.getElementById("master_id").classList.add("fa-cloud","fa-4x");
+
+        document.getElementById("master_id").style.color="#5a9ecb"
+
+
+    }
+    if(status=='Haze'&& current_time.getHours()<19 && current_time.getHours()>6 ){
+        document.getElementById("main-container").style.backgroundImage="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKMgMXNDQaH0kTKoHR5gA69oX4CpFW5okSng&usqp=CAU')";
+        document.body.style.color="black";
+
+        document.getElementById("master_id").classList.remove("fa-sun","fa-5x");
+        document.getElementById("master_id").classList.add("fa-smog","fa-4x");
+
+        document.getElementById("master_id").style.color="#928372"
+    }
+    if(status=='Rain'&& current_time.getHours()<19 && current_time.getHours()>6 ){
+        document.getElementById("main-container").style.backgroundImage="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAebZ-CNt27QY7nSnyKrGVPUUsY-B-hHL1jQ&usqp=CAU  ')";
+        document.body.style.color="white";
+
+        document.getElementById("master_id").classList.remove("fa-sun");
+        document.getElementById("master_id").classList.add("fa-cloud-showers-heavy");
+        
+        document.getElementById("master_id").style.color="#676767"
+    }
+    if(status=='Dust'&& current_time.getHours()<19 && current_time.getHours()>6 ){
+        document.getElementById("main-container").style.backgroundImage="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKMgMXNDQaH0kTKoHR5gA69oX4CpFW5okSng&usqp=CAU')";
+        document.body.style.color="black";
+
+        document.getElementById("master_id").classList.remove("fa-sun","fa-5x");
+        document.getElementById("master_id").classList.add("fa-smog","fa-4x");
+
+        document.getElementById("master_id").style.color="#928372"
+    }
+
+
+
+
+
+
+
+
+    if(status=='Clear'&& current_time.getHours()>=19 || current_time.getHours()<6 ){
+        document.getElementById("main-container").style.backgroundImage="url('data:image/jpeg;base64,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')";
+        document.body.style.color="white";
+
+        document.getElementById("master_id").classList.remove("fa-sun","fa-5x");
+        document.getElementById("master_id").classList.add("fa-moon","fa-4x");
+
+        document.getElementById("master_id").style.color="#ffffb0"
+    }
+    if(status=='Clouds'&& current_time.getHours()>=19 || current_time.getHours()<6 ){
+        document.getElementById("main-container").style.backgroundImage="url('data:image/jpeg;base64,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 ')";
+        document.body.style.color="white";
+
+        document.getElementById("master_id").classList.remove("fa-sun","fa-5x");
+        document.getElementById("master_id").classList.add("fa-cloud","fa-4x");
+
+        document.getElementById("master_id").style.color="#c0c0c0" 
+     }
+    if(status=='Haze'&& current_time.getHours()>=19 || current_time.getHours()<6 ){
+        document.getElementById("main-container").style.backgroundImage="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvOACSXReL1_BHYXqUxCeuvlSxmQ6cApvkJA&usqp=CAU')";
+        document.body.style.color="white";
+
+        document.getElementById("master_id").classList.remove("fa-sun","fa-5x");
+        document.getElementById("master_id").classList.add("fa-smog","fa-4x");
+
+        document.getElementById("master_id").style.color="#a7a4a2"
+    }
+    if(status=='Rain'&& current_time.getHours()>=19 || current_time.getHours()<6 ){
+        document.getElementById("main-container").style.backgroundImage="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLvbnCVVQgMIqscW02XiUOxNEN7cg7Dv4WNQ&usqp=CA')";
+        document.body.style.color="white";
+
+        document.getElementById("master_id").classList.remove("fa-sun");
+        document.getElementById("master_id").classList.add("fa-cloud-showers-heavy");
+
+        document.getElementById("master_id").style.color="#858585"
+     }    
+     if(status=='Dust'&& current_time.getHours()>=19 || current_time.getHours()<6 ){
+        document.getElementById("main-container").style.backgroundImage="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvOACSXReL1_BHYXqUxCeuvlSxmQ6cApvkJA&usqp=CAU')";
+        document.body.style.color="white";
+
+        document.getElementById("master_id").classList.remove("fa-sun","fa-5x");
+        document.getElementById("master_id").classList.add("fa-smog","fa-4x");
+
+        document.getElementById("master_id").style.color="#a7a4a2"
+    }
+})
+
+    </script>
+
+    <script src="https://kit.fontawesome.com/c0ee13f626.js" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
